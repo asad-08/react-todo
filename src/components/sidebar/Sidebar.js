@@ -17,7 +17,7 @@ function Sidebar() {
     width: "56px",
   };
   return (
-    <div className="sidebar mt-[60px] px-4 py-2 w-[60px] min-w-[60px] md:w-[250px] md:min-w-[250px] bg-slate-50 dark:bg-slate-700">
+    <div className="sidebar mt-[60px] px-4 py-2 w-[60px] min-w-[60px] md:w-[200px] md:min-w-[200px] bg-slate-50 dark:bg-slate-700">
       <div className="flex flex-col">
         <div className="hidden md:flex flex-col pt-12">
           <Avatar sx={avatarStyle}>A</Avatar>
