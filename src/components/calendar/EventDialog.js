@@ -29,7 +29,11 @@ export default function EventDialog({
     handleEventClickClose();
     clearClickedEvent();
   };
-  const [selectedColor, setSelectedColor] = useState("rgb(124 58 237)");
+  const [selectedColor, setSelectedColor] = useState(
+    !isAdd
+      ? clickedEvent && clickedEvent.event._def.extendedProps.label
+      : "rgb(124 58 237)"
+  );
   const [value, setValue] = React.useState(dayjs());
 
   const [title, setTitle] = useState(
@@ -67,7 +71,7 @@ export default function EventDialog({
       start: value.format("YYYY-MM-DD"),
       end: value.format("YYYY-MM-DD"),
       description: description,
-      label: label,
+      label: selectedColor,
       allDay: true,
       color: selectedColor,
     };
@@ -75,6 +79,7 @@ export default function EventDialog({
     setIsClickedEvent();
     clearClickedEvent();
   }
+  console.log(clickedEvent);
 
   return (
     <div>

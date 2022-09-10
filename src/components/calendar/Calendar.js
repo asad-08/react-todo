@@ -104,7 +104,6 @@ function Calendar() {
         events={events}
         // eventContent={renderEventContent}
         eventClick={function (arg) {
-          console.log("arg:", arg);
           setIsClickedEvent(true);
           setIsAdd(false);
           setClickedEvent(arg);
