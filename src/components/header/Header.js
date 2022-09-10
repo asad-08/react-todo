@@ -17,7 +17,7 @@ function Header() {
     dispatch(setCurrentMode(!currentMode));
   }
   return (
-    <div className="fixed z-50 w-full px-4 md:px-16 lg:px-32 top-0 left-0   h-[60px] bg-slate-50 dark:bg-slate-800 dark:border-b-2 dark:border-b-slate-300">
+    <div className="fixed z-50 w-full px-4 top-0 left-0   h-[60px] bg-slate-50 dark:bg-slate-800 dark:border-b-2 dark:border-b-slate-300">
       <nav className="flex items-center justify-between px-4">
         <label className="text-3xl font-bold  text-black dark:text-white">
           .MyTodo

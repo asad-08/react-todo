@@ -11,3 +11,6 @@ html {
 }
 
 
+.main_body {
+  min-height: calc(100vh);
+}

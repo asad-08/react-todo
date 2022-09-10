@@ -25,7 +25,7 @@ function App() {
 
       <Router>
         <Header></Header>
-        <div className="flex dark:bg-slate-800">
+        <div className="main_body flex pl-[60px] md:pl-[200px] dark:bg-slate-800">
           <Sidebar />
           <Routes>
             {/* <Route path="/" element={<Home />} exact /> */}

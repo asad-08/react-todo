@@ -157,7 +157,7 @@ function MyTask() {
                   </label>
                 </div>
               </div>
-              <div className="flex-1 w-full px-4 flex items-center justify-between">
+              <div className="flex-1 w-full px-4 flex items-center justify-end gap-2">
                 <label className="text-slate-700 dark:text-slate-50">
                   10 Aug
                 </label>
@@ -180,7 +180,7 @@ function MyTask() {
                   </label>
                 </div>
               </div>
-              <div className="flex-1 w-full px-4 flex items-center justify-between">
+              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
                 <label className="text-slate-700 dark:text-slate-50">
                   10 Aug
                 </label>
@@ -203,7 +203,7 @@ function MyTask() {
                   </label>
                 </div>
               </div>
-              <div className="flex-1 w-full px-4 flex items-center justify-between">
+              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
                 <label className="text-slate-700 dark:text-slate-50">
                   10 Aug
                 </label>
@@ -226,7 +226,7 @@ function MyTask() {
                   </label>
                 </div>
               </div>
-              <div className="flex-1 w-full px-4 flex items-center justify-between">
+              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
                 <label className="text-slate-700 dark:text-slate-50">
                   10 Aug
                 </label>
