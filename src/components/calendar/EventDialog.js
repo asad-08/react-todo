@@ -131,11 +131,12 @@ export default function EventDialog({
             </div>
             <div>
               <label className="text-sm font-semibold flex gap-4 mb-3">
-                Label &nbsp; &nbsp;{" "}
+                Label &nbsp; &nbsp;
                 <div
                   style={{ backgroundColor: selectedColor }}
                   className="h-[20px] w-[20px] rounded-[50%]"
                 ></div>
+                {selectedColor === "rgb(124 58 237)" ? "(Default)" : null}
               </label>
               <div className="flex items-center gap-1">
                 {colorList.map((x, i) => (
