@@ -8,6 +8,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { getCurrentMode, setCurrentMode } from "../../store/mode/modeSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Header() {
   const currentMode = useSelector(getCurrentMode);
@@ -23,18 +24,24 @@ function Header() {
           .MyTodo
         </label>
         <ul className="flex items-center justify-between gap-4 font-semibold text-black dark:text-white">
-          <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
-            <DashboardIcon sx={{ height: "15px", width: "15px" }} />
-            <span className="hidden text-sm md:block">Dashboard</span>
-          </li>
-          <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
-            <SettingsIcon sx={{ height: "15px", width: "15px" }} />
-            <span className="hidden text-sm md:block">Settings</span>
-          </li>
-          <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
-            <CircleNotificationsIcon sx={{ height: "15px", width: "15px" }} />
-            <span className="hidden text-sm md:block">Notifications</span>
-          </li>
+          <Link to="/dashboard">
+            <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
+              <DashboardIcon sx={{ height: "15px", width: "15px" }} />
+              <span className="hidden text-sm md:block">Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/settings">
+            <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
+              <SettingsIcon sx={{ height: "15px", width: "15px" }} />
+              <span className="hidden text-sm md:block">Settings</span>
+            </li>
+          </Link>
+          <Link to="/notification">
+            <li className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300">
+              <CircleNotificationsIcon sx={{ height: "15px", width: "15px" }} />
+              <span className="hidden text-sm md:block">Notifications</span>
+            </li>
+          </Link>
           <li
             className="flex items-center gap-1 cursor-pointer py-4 hover:text-slate-600 dark:hover:text-slate-300"
             onClick={(e) => handleMode(e)}

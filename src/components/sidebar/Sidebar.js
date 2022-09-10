@@ -9,6 +9,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import TaskIcon from "@mui/icons-material/Task";
+import { Link } from "react-router-dom";
 function Sidebar() {
   const avatarStyle = {
     backgroundColor: "rgb(147 51 234)",
@@ -30,26 +31,40 @@ function Sidebar() {
         </div>
         <hr className="mt-6 mr-16" />
         <ul className="pt-48 md:pt-12 flex flex-col gap-6 text-slate-700 dark:text-white">
-          <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
-            <DashboardIcon sx={{ height: "20px", width: "20px" }} />
-            <span className="hidden md:block">Dashboard</span>
-          </li>
-          <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
-            <TaskIcon sx={{ height: "20px", width: "20px" }} />
-            <span className="hidden md:block">My Task</span>
-          </li>
-          <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
-            <CalendarMonthIcon sx={{ height: "20px", width: "20px" }} />
-            <span className="hidden md:block">Calendar</span>
-          </li>
-          <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
-            <GroupsIcon sx={{ height: "20px", width: "20px" }} />
-            <span className="hidden md:block">Team</span>
-          </li>
-          <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
-            <ConnectWithoutContactIcon sx={{ height: "20px", width: "20px" }} />
-            <span className="hidden md:block">Contact</span>
-          </li>
+          <Link to="/dashboard">
+            <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
+              <DashboardIcon sx={{ height: "20px", width: "20px" }} />
+              <span className="hidden md:block">Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/mytask">
+            <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
+              <TaskIcon sx={{ height: "20px", width: "20px" }} />
+              <span className="hidden md:block">My Task</span>
+            </li>
+          </Link>
+
+          <Link to="/calendar">
+            <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
+              <CalendarMonthIcon sx={{ height: "20px", width: "20px" }} />
+              <span className="hidden md:block">Calendar</span>
+            </li>
+          </Link>
+          <Link to="/team">
+            <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
+              <GroupsIcon sx={{ height: "20px", width: "20px" }} />
+              <span className="hidden md:block">Team</span>
+            </li>
+          </Link>
+
+          <Link to="/contact">
+            <li className="flex items-center gap-2 text-sm font-semibold cursor-pointer hover:underline">
+              <ConnectWithoutContactIcon
+                sx={{ height: "20px", width: "20px" }}
+              />
+              <span className="hidden md:block">Contact</span>
+            </li>
+          </Link>
         </ul>
       </div>
     </div>
