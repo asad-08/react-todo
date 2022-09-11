@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./MyTask.css";
 import AddIcon from "@mui/icons-material/Add";
 import { Search } from "@mui/icons-material";
@@ -10,6 +10,24 @@ import moment from "moment";
 
 function MyTask() {
   const events = useSelector(getAllTasks);
+  const [todayList, setTodayList] = useState([]);
+  const [tomorrowList, setTomorrowList] = useState([]);
+
+  useEffect(() => {
+    const tdyList =
+      events.length > 0 &&
+      events.filter(
+        (x) => x.selectedDate == moment(new Date()).format("DD-MM-YYYY")
+      );
+    const tmrList =
+      events.length > 0 &&
+      events.filter(
+        (x) => x.selectedDate == moment().add(1, "days").format("DD-MM-YYYY")
+      );
+    setTodayList(tdyList);
+    setTomorrowList(tmrList);
+  }, [events]);
+
   const shadowColorList = [
     "bg-blue-500",
     "bg-yellow-500",
@@ -46,12 +64,12 @@ function MyTask() {
                   Today's Tasks
                 </label>
                 <div className="bg-purple-600 dark:bg-purple-400 flex justify-center text-white px-[8px] rounded-full">
-                  4
+                  {(todayList && todayList.length) || 0}
                 </div>
               </div>
-              {events &&
-                events.length > 0 &&
-                events.map((x, ind) => (
+              {todayList &&
+                todayList.length > 0 &&
+                todayList.map((x, ind) => (
                   <div
                     key={ind}
                     className="w-full rounded-lg shadow-md shadow-slate-500"
@@ -97,48 +115,46 @@ function MyTask() {
                   Tomorrow's Tasks
                 </label>
                 <div className="bg-purple-600 dark:bg-purple-400 flex justify-center text-white px-[8px] rounded-full">
-                  4
+                  {(tomorrowList && tomorrowList.length) || 0}
                 </div>
               </div>
-              <div className="w-full rounded-lg shadow-md shadow-slate-500">
-                <div className="flex bg-white  overflow-hidden rounded-lg">
-                  <div className="flex flex-1 items-center justify-center flex-col bg-sky-100 text-black p-4">
-                    <NotificationsActiveIcon
-                      sx={{ height: "14px", width: "14px" }}
-                    />
-                    <label>11:20</label>
+              {tomorrowList &&
+                tomorrowList.length > 0 &&
+                tomorrowList.map((x, ind) => (
+                  <div className="w-full rounded-lg shadow-md shadow-slate-500">
+                    <div className="flex bg-white  overflow-hidden rounded-lg">
+                      <div
+                        className={`z-10 flex flex-1 items-center justify-center flex-col ${x.color} text-white p-4`}
+                      >
+                        <NotificationsActiveIcon
+                          sx={{ height: "14px", width: "14px" }}
+                        />
+                        <label>
+                          {moment(x.selectedDateTime).format("HH:MM")}
+                        </label>
+                      </div>
+                      <div
+                        className={`flex flex-[4] flex-col text-slate-100 ${
+                          x.color.substr(0, x.color.length - 3) +
+                          parseInt(
+                            x.color.substr(x.color.length - 3, x.color.length) -
+                              100
+                          )
+                        } px-4 py-4`}
+                      >
+                        <h2 className="font-semibold text-2xl">{x.title}</h2>
+                        <label className="font-normal text-sm">
+                          Starts in 2h 40min
+                        </label>
+                        <label className="font-normal text-sm">
+                          {x.description.length > 50
+                            ? x.description.substr(0, 50) + "..."
+                            : x.description}
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-[4] flex-col text-slate-700 px-4 py-4">
-                    <h2 className="font-semibold text-2xl">Learn React</h2>
-                    <label className="font-normal text-sm">
-                      Starts in 2h 40min
-                    </label>
-                    <label className="font-normal text-sm">
-                      Nikunja-2, Khilkhet, Dhaka
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full rounded-lg shadow-md shadow-slate-500">
-                <div className="flex bg-white  overflow-hidden rounded-lg">
-                  <div className="flex flex-1 items-center justify-center flex-col bg-sky-100 text-black p-4">
-                    <NotificationsActiveIcon
-                      sx={{ height: "14px", width: "14px" }}
-                    />
-                    <label>11:20</label>
-                  </div>
-                  <div className="flex flex-[4] flex-col text-slate-700 px-4 py-4">
-                    <h2 className="font-semibold text-2xl">Learn React</h2>
-                    <label className="font-normal text-sm">
-                      Starts in 2h 40min
-                    </label>
-                    <label className="font-normal text-sm">
-                      Nikunja-2, Khilkhet, Dhaka
-                    </label>
-                  </div>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>
