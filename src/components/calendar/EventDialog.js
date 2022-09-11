@@ -32,7 +32,7 @@ export default function EventDialog({
   const [selectedColor, setSelectedColor] = useState(
     !isAdd
       ? clickedEvent && clickedEvent.event._def.extendedProps.label
-      : "rgb(124 58 237)"
+      : "bg-purple-600"
   );
   const [value, setValue] = React.useState(dayjs());
 
@@ -55,11 +55,11 @@ export default function EventDialog({
     setSelectedColor(x);
   }
   const colorList = [
-    "rgb(249 115 22)",
-    "rgb(234 179 8)",
-    "rgb(101 163 13)",
-    "rgb(37 99 235)",
-    "rgb(124 58 237)",
+    "bg-blue-600",
+    "bg-yellow-600",
+    "bg-red-600",
+    "bg-orange-600",
+    "bg-purple-600",
   ];
 
   function add() {
@@ -138,17 +138,17 @@ export default function EventDialog({
               <label className="text-sm font-semibold flex gap-4 mb-3">
                 Label &nbsp; &nbsp;
                 <div
-                  style={{ backgroundColor: selectedColor }}
-                  className="h-[20px] w-[20px] rounded-[50%]"
+                  // style={{ backgroundColor: selectedColor }}
+                  className={`h-[20px] w-[20px] rounded-[50%] ${selectedColor}`}
                 ></div>
-                {selectedColor === "rgb(124 58 237)" ? "(Default)" : null}
+                {selectedColor === "bg-purple-600" ? "(Default)" : null}
               </label>
               <div className="flex items-center gap-1">
                 {colorList.map((x, i) => (
                   <div
                     key={i}
-                    style={{ backgroundColor: x }}
-                    className="h-[20px] w-[20px] rounded-[50%] cursor-pointer"
+                    // style={{ backgroundColor: x }}
+                    className={`h-[20px] w-[20px] rounded-[50%] cursor-pointer ${x}`}
                     onClick={() => handleColorPick(x)}
                   ></div>
                 ))}

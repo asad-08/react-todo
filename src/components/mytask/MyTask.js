@@ -4,8 +4,19 @@ import AddIcon from "@mui/icons-material/Add";
 import { Search } from "@mui/icons-material";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Checkbox } from "@mui/material";
+import { useSelector } from "react-redux";
+import { getAllTasks } from "../../store/task/taskSlice";
+import moment from "moment";
 
 function MyTask() {
+  const events = useSelector(getAllTasks);
+  const shadowColorList = [
+    "bg-blue-500",
+    "bg-yellow-500",
+    "bg-red-500",
+    "bg-orange-500",
+    "bg-purple-500",
+  ];
   return (
     <div className="mt-[60px] p-4 w-full">
       {/* search and add new task */}
@@ -38,45 +49,46 @@ function MyTask() {
                   4
                 </div>
               </div>
-              <div className="w-full rounded-lg shadow-md shadow-slate-500">
-                <div className="flex bg-sky-500 overflow-hidden rounded-lg">
-                  <div className="flex flex-1 items-center justify-center flex-col bg-sky-600 text-white p-4">
-                    <NotificationsActiveIcon
-                      sx={{ height: "14px", width: "14px" }}
-                    />
-                    <label>11:20</label>
+              {events &&
+                events.length > 0 &&
+                events.map((x, ind) => (
+                  <div
+                    key={ind}
+                    className="w-full rounded-lg shadow-md shadow-slate-500"
+                  >
+                    <div className={`flex  overflow-hidden rounded-lg`}>
+                      <div
+                        className={`z-10 flex flex-1 items-center justify-center flex-col ${x.color} text-white p-4`}
+                      >
+                        <NotificationsActiveIcon
+                          sx={{ height: "14px", width: "14px" }}
+                        />
+                        <label>
+                          {moment(x.selectedDateTime).format("HH:MM")}
+                        </label>
+                      </div>
+                      <div
+                        className={`flex flex-[4] flex-col text-slate-100 ${
+                          x.color.substr(0, x.color.length - 3) +
+                          parseInt(
+                            x.color.substr(x.color.length - 3, x.color.length) -
+                              100
+                          )
+                        } px-4 py-4`}
+                      >
+                        <h2 className="font-semibold text-2xl">{x.title}</h2>
+                        <label className="font-normal text-sm">
+                          Starts in 2h 40min
+                        </label>
+                        <label className="font-normal text-sm">
+                          {x.description.length > 50
+                            ? x.description.substr(0, 50) + "..."
+                            : x.description}
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-[4] flex-col text-slate-100 px-4 py-4">
-                    <h2 className="font-semibold text-2xl">Learn React</h2>
-                    <label className="font-normal text-sm">
-                      Starts in 2h 40min
-                    </label>
-                    <label className="font-normal text-sm">
-                      Nikunja-2, Khilkhet, Dhaka
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full rounded-lg shadow-md shadow-slate-500">
-                <div className="flex bg-orange-500 overflow-hidden rounded-lg ">
-                  <div className="flex flex-1 items-center justify-center flex-col bg-orange-600 text-white p-4">
-                    <NotificationsActiveIcon
-                      sx={{ height: "14px", width: "14px" }}
-                    />
-                    <label>11:20</label>
-                  </div>
-                  <div className="flex flex-[4] flex-col text-slate-100 px-4 py-4">
-                    <h2 className="font-semibold text-2xl">Learn React</h2>
-                    <label className="font-normal text-sm">
-                      Starts in 2h 40min
-                    </label>
-                    <label className="font-normal text-sm">
-                      Nikunja-2, Khilkhet, Dhaka
-                    </label>
-                  </div>
-                </div>
-              </div>
+                ))}
             </div>
 
             <div className="w-full flex flex-col items-center gap-5 mt-12">
