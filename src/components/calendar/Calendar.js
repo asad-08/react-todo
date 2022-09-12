@@ -111,7 +111,7 @@ function Calendar() {
         eventColor="#9333EA"
         dateClick={(arg) => {
           const obj = {
-            selectedDate: moment(arg.date).format("DD-MM-YYYY"),
+            selectedDate: moment(arg.date).format("YYYY-MM-DD"),
             selectedDateStr: arg.dateStr,
           };
           setSelectedDate(obj.selectedDate);

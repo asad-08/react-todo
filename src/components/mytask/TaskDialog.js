@@ -13,41 +13,33 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { addTasks } from "../../store/task/taskSlice";
 
-export default function EventDialog({
-  handleEventClickClose,
+export default function TaskDialog({
+  handleTaskClickClose,
   isOpen,
   selectedDate,
-  setIsClickedEvent,
+  setIsClickedTask,
   isAdd,
-  clickedEvent,
-  clearClickedEvent,
+  selectedTask,
+  clearSelectedTask,
   total,
 }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(isOpen);
   const handleClose = () => {
-    handleEventClickClose();
-    clearClickedEvent();
+    handleTaskClickClose();
+    clearSelectedTask();
   };
   const [selectedColor, setSelectedColor] = useState(
-    !isAdd
-      ? clickedEvent && clickedEvent.event._def.extendedProps.label
-      : "bg-purple-500"
+    !isAdd ? selectedTask.label : "bg-purple-500"
   );
   const [value, setValue] = React.useState(dayjs());
 
-  const [title, setTitle] = useState(
-    !isAdd ? clickedEvent && clickedEvent.event._def.title : ""
-  );
+  const [title, setTitle] = useState(!isAdd ? selectedTask.title : "");
   const [taskDateTime, setTaskDateTime] = useState(
-    !isAdd
-      ? clickedEvent && clickedEvent.event._def.extendedProps.selectedDateTime
-      : ""
+    !isAdd ? selectedTask.selectedDateTime : ""
   );
   const [description, setDescription] = useState(
-    !isAdd
-      ? clickedEvent && clickedEvent.event._def.extendedProps.description
-      : ""
+    !isAdd ? selectedTask.description : ""
   );
   const [label, setLabel] = useState("");
 
@@ -65,7 +57,7 @@ export default function EventDialog({
   function add() {
     const obj = {
       taskid: total + 1,
-      selectedDate: selectedDate,
+      selectedDate: value.format("YYYY-MM-DD"),
       title: title,
       selectedDateTime: value.format("YYYY-MM-DD HH:mm"),
       start: value.format("YYYY-MM-DD"),
@@ -76,8 +68,8 @@ export default function EventDialog({
       color: selectedColor,
     };
     dispatch(addTasks(obj));
-    setIsClickedEvent();
-    clearClickedEvent();
+    setIsClickedTask();
+    clearSelectedTask();
   }
 
   return (

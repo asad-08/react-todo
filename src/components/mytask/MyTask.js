@@ -7,22 +7,40 @@ import { Checkbox } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getAllTasks } from "../../store/task/taskSlice";
 import moment from "moment";
+import TaskDialog from "./TaskDialog";
 
 function MyTask() {
   const events = useSelector(getAllTasks);
   const [todayList, setTodayList] = useState([]);
   const [tomorrowList, setTomorrowList] = useState([]);
+  const [isAdd, setIsAdd] = useState(true);
+  const [isClickedTask, setIsClickedTask] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(
+    moment(new Date()).format("DD/MM/YYYY HH:mm")
+  );
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    setIsClickedTask(true);
+  };
+  const handleTaskClickClose = (e) => {
+    setIsClickedTask(false);
+  };
+  const clearSelectedTask = (e) => {
+    setSelectedTask(null);
+  };
 
   useEffect(() => {
     const tdyList =
       events.length > 0 &&
       events.filter(
-        (x) => x.selectedDate == moment(new Date()).format("DD-MM-YYYY")
+        (x) => x.selectedDate == moment(new Date()).format("YYYY-MM-DD")
       );
     const tmrList =
       events.length > 0 &&
       events.filter(
-        (x) => x.selectedDate == moment().add(1, "days").format("DD-MM-YYYY")
+        (x) => x.selectedDate == moment().add(1, "days").format("YYYY-MM-DD")
       );
     setTodayList(tdyList);
     setTomorrowList(tmrList);
@@ -46,7 +64,10 @@ function MyTask() {
           />
           <Search />
         </div>
-        <button className="bg-purple-600 dark:bg-purple-400 p-[8px] px-4 flex items-center gap-1 rounded-full text-white">
+        <button
+          className="bg-purple-600 dark:bg-purple-400 p-[8px] px-4 flex items-center gap-1 rounded-full text-white"
+          onClick={(e) => handleAdd(e)}
+        >
           <AddIcon />
           <span className="text-sm font-semibold hidden sm:block">
             New Task
@@ -82,7 +103,7 @@ function MyTask() {
                           sx={{ height: "14px", width: "14px" }}
                         />
                         <label>
-                          {moment(x.selectedDateTime).format("HH:MM")}
+                          {moment(new Date(x.selectedDateTime)).format("HH:mm")}
                         </label>
                       </div>
                       <div
@@ -130,7 +151,7 @@ function MyTask() {
                           sx={{ height: "14px", width: "14px" }}
                         />
                         <label>
-                          {moment(x.selectedDateTime).format("HH:MM")}
+                          {moment(new Date(x.selectedDateTime)).format("HH:mm")}
                         </label>
                       </div>
                       <div
@@ -171,98 +192,41 @@ function MyTask() {
             </div>
           </div>
           <div className="w-full p-6 py-4 bg-slate-100 dark:bg-slate-700 rounded-lg flex flex-col gap-8 mt-6">
-            <div className="flex items-center justify-between flex-col md:flex-row">
-              <div className="w-full flex-[4] flex items-center gap-1">
-                <Checkbox />
-                <label className="text-slate-400">#1001</label>
-                <label className="text-slate-800 dark:text-slate-50">
-                  Learn React with Redux
-                </label>
-                <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
+            {events &&
+              events.length > 0 &&
+              events.map((x, ind) => (
+                <div className="flex items-center justify-between flex-col md:flex-row">
+                  <div className="w-full flex-[4] flex items-center gap-1">
+                    <Checkbox />
+                    <label className="text-slate-400">#{ind}</label>
+                    <label className="text-slate-800 dark:text-slate-50">
+                      {x.title}
+                    </label>
+                    {/* <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
                   <div className="w-[10px] h-[10px] rounded-[50%] bg-purple-700 dark:text-purple-400"></div>
                   <label className="text-purple-700 dark:text-purple-400 text-[12px]">
                     Marketing
                   </label>
+                </div> */}
+                  </div>
+                  <div className="flex-1 w-full px-4 flex items-center justify-end gap-2">
+                    <label className="text-slate-700 dark:text-slate-50">
+                      {moment(new Date(x.selectedDateTime)).format("DD-MMM")}
+                    </label>
+
+                    {moment(new Date(x.selectedDateTime)).format("YYYY-MM-DD") >
+                    moment(new Date()).format("YYYY-MM-DD") ? (
+                      <label className="text-red-700 bg-red-200 rounded-full px-2 py-1 text-[10px] font-semibold">
+                        Overdue
+                      </label>
+                    ) : (
+                      <label className="text-green-700 bg-green-200 rounded-full px-2 py-1 text-[10px] font-semibold">
+                        On the way
+                      </label>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1 w-full px-4 flex items-center justify-end gap-2">
-                <label className="text-slate-700 dark:text-slate-50">
-                  10 Aug
-                </label>
-                <label className="text-red-700 bg-red-200 rounded-full px-2 py-1 text-[10px] font-semibold">
-                  Overdue
-                </label>
-              </div>
-            </div>
-            <div className="flex items-center justify-between flex-col md:flex-row">
-              <div className="w-full flex-[4] flex items-center gap-1">
-                <Checkbox />
-                <label className="text-slate-400">#1001</label>
-                <label className="text-slate-800 dark:text-slate-50">
-                  Learn React with Redux
-                </label>
-                <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
-                  <div className="w-[10px] h-[10px] rounded-[50%] bg-purple-700 dark:text-purple-400"></div>
-                  <label className="text-purple-700 dark:text-purple-400 text-[12px]">
-                    Marketing
-                  </label>
-                </div>
-              </div>
-              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
-                <label className="text-slate-700 dark:text-slate-50">
-                  10 Aug
-                </label>
-                <label className="text-red-700 bg-red-200 rounded-full px-2 py-1 text-[10px] font-semibold">
-                  Overdue
-                </label>
-              </div>
-            </div>
-            <div className="flex items-center justify-between flex-col md:flex-row">
-              <div className="w-full flex-[4] flex items-center gap-1">
-                <Checkbox />
-                <label className="text-slate-400">#1001</label>
-                <label className="text-slate-800 dark:text-slate-50">
-                  Learn React with Redux
-                </label>
-                <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
-                  <div className="w-[10px] h-[10px] rounded-[50%] bg-purple-700 dark:text-purple-400"></div>
-                  <label className="text-purple-700 dark:text-purple-400 text-[12px]">
-                    Marketing
-                  </label>
-                </div>
-              </div>
-              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
-                <label className="text-slate-700 dark:text-slate-50">
-                  10 Aug
-                </label>
-                <label className="text-red-700 bg-red-200 rounded-full px-2 py-1 text-[10px] font-semibold">
-                  Overdue
-                </label>
-              </div>
-            </div>
-            <div className="flex items-center justify-between flex-col md:flex-row">
-              <div className="w-full flex-[4] flex items-center gap-1">
-                <Checkbox />
-                <label className="text-slate-400">#1001</label>
-                <label className="text-slate-800 dark:text-slate-50">
-                  Learn React with Redux
-                </label>
-                <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
-                  <div className="w-[10px] h-[10px] rounded-[50%] bg-purple-700 dark:text-purple-400"></div>
-                  <label className="text-purple-700 dark:text-purple-400 text-[12px]">
-                    Marketing
-                  </label>
-                </div>
-              </div>
-              <div className="flex-1 w-full px-4 flex items-center  justify-end gap-2">
-                <label className="text-slate-700 dark:text-slate-50">
-                  10 Aug
-                </label>
-                <label className="text-red-700 bg-red-200 rounded-full px-2 py-1 text-[10px] font-semibold">
-                  Overdue
-                </label>
-              </div>
-            </div>
+              ))}
           </div>
           <div className="w-full flex items-center gap-4 mt-6">
             <div className="flex-1 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center text-slate-700 dark:text-slate-100">
@@ -308,6 +272,19 @@ function MyTask() {
           </div>
         </div>
       </div>
+
+      {isClickedTask ? (
+        <TaskDialog
+          handleTaskClickClose={handleTaskClickClose}
+          isOpen={isClickedTask}
+          selectedDate={selectedDate}
+          setIsClickedTask={setIsClickedTask}
+          isAdd={isAdd}
+          selectedTask={selectedTask}
+          clearSelectedTask={clearSelectedTask}
+          total={events && events.length}
+        />
+      ) : null}
     </div>
   );
 }
