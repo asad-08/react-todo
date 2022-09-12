@@ -97,7 +97,13 @@ function MyTask() {
                   >
                     <div className={`flex  overflow-hidden rounded-lg`}>
                       <div
-                        className={`z-10 flex flex-1 items-center justify-center flex-col ${x.color} text-white p-4`}
+                        className={`z-10 flex flex-1 items-center justify-center flex-col ${
+                          x.color
+                        } ${
+                          x.color.includes("yellow")
+                            ? "text-slate-600"
+                            : "text-white"
+                        } p-4`}
                       >
                         <NotificationsActiveIcon
                           sx={{ height: "14px", width: "14px" }}
@@ -107,7 +113,11 @@ function MyTask() {
                         </label>
                       </div>
                       <div
-                        className={`flex flex-[4] flex-col text-slate-100 ${
+                        className={`flex flex-[4] flex-col ${
+                          x.color.includes("yellow")
+                            ? "text-slate-600"
+                            : "text-slate-100"
+                        }  ${
                           x.color.substr(0, x.color.length - 3) +
                           parseInt(
                             x.color.substr(x.color.length - 3, x.color.length) -
@@ -145,7 +155,13 @@ function MyTask() {
                   <div className="w-full rounded-lg shadow-md shadow-slate-500">
                     <div className="flex bg-white  overflow-hidden rounded-lg">
                       <div
-                        className={`z-10 flex flex-1 items-center justify-center flex-col ${x.color} text-white p-4`}
+                        className={`z-10 flex flex-1 items-center justify-center flex-col ${
+                          x.color
+                        } ${
+                          x.color.includes("yellow")
+                            ? "text-slate-600"
+                            : "text-white"
+                        } p-4`}
                       >
                         <NotificationsActiveIcon
                           sx={{ height: "14px", width: "14px" }}
@@ -155,7 +171,11 @@ function MyTask() {
                         </label>
                       </div>
                       <div
-                        className={`flex flex-[4] flex-col text-slate-100 ${
+                        className={`flex flex-[4] flex-col ${
+                          x.color.includes("yellow")
+                            ? "text-slate-600"
+                            : "text-slate-100"
+                        } ${
                           x.color.substr(0, x.color.length - 3) +
                           parseInt(
                             x.color.substr(x.color.length - 3, x.color.length) -
@@ -196,10 +216,10 @@ function MyTask() {
               events.length > 0 &&
               events.map((x, ind) => (
                 <div className="flex items-center justify-between flex-col md:flex-row">
-                  <div className="w-full flex-[4] flex items-center gap-1">
+                  <div className="w-full flex-[4] flex items-center gap-2">
                     <Checkbox />
                     <label className="text-slate-400">#{ind}</label>
-                    <label className="text-slate-800 dark:text-slate-50">
+                    <label className="text-slate-800 dark:text-slate-50 ml-4">
                       {x.title}
                     </label>
                     {/* <div className="border border-purple-700 dark:border-purple-400 rounded-full ml-4 flex items-center justify-between px-2 py-1 gap-2">
