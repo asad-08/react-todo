@@ -12,9 +12,16 @@ const taskSlice = createSlice({
     addTasks: (state, action) => {
       return { tasks: [...state.tasks, action.payload] };
     },
+    completeTask: (state, action) => {
+      return {
+        tasks: state.tasks.map((x) =>
+          x.taskid == action.payload ? { ...x, isCompleted: !x.isCompleted } : x
+        ),
+      };
+    },
   },
   extraReducers: {},
 });
-export const { addTasks } = taskSlice.actions;
+export const { addTasks, completeTask } = taskSlice.actions;
 export const getAllTasks = (state) => state.tasks.tasks;
 export default taskSlice.reducer;

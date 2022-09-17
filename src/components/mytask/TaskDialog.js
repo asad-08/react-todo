@@ -30,7 +30,7 @@ export default function TaskDialog({
     clearSelectedTask();
   };
   const [selectedColor, setSelectedColor] = useState(
-    !isAdd ? selectedTask.label : "bg-purple-500"
+    !isAdd ? selectedTask.label : "purple"
   );
   const [value, setValue] = React.useState(dayjs());
 
@@ -46,13 +46,7 @@ export default function TaskDialog({
   function handleColorPick(x) {
     setSelectedColor(x);
   }
-  const colorList = [
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-red-500",
-    "bg-orange-500",
-    "bg-purple-500",
-  ];
+  const colorList = ["blue", "green", "red", "orange", "purple"];
 
   function add() {
     const obj = {
@@ -66,6 +60,7 @@ export default function TaskDialog({
       label: selectedColor,
       allDay: true,
       color: selectedColor,
+      isCompleted: false,
     };
     dispatch(addTasks(obj));
     setIsClickedTask();
@@ -130,16 +125,22 @@ export default function TaskDialog({
                 Label &nbsp; &nbsp;
                 <div
                   // style={{ backgroundColor: selectedColor }}
-                  className={`h-[20px] w-[20px] rounded-[50%] ${selectedColor}`}
+                  className={`h-[20px] w-[20px] rounded-[50%] ${
+                    "bg-" + selectedColor + "-500"
+                  }`}
                 ></div>
-                {selectedColor === "bg-purple-500" ? "(Default)" : null}
+                {"bg-" + selectedColor + "-500" == "bg-purple-500"
+                  ? "(Default)"
+                  : null}
               </label>
               <div className="flex items-center gap-1">
                 {colorList.map((x, i) => (
                   <div
                     key={i}
                     // style={{ backgroundColor: x }}
-                    className={`h-[20px] w-[20px] rounded-[50%] cursor-pointer ${x}`}
+                    className={`h-[20px] w-[20px] rounded-[50%] cursor-pointer ${
+                      x == "green" ? "bg-green-500" : "bg-" + x + "-500"
+                    }`}
                     onClick={() => handleColorPick(x)}
                   ></div>
                 ))}

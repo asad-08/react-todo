@@ -32,7 +32,7 @@ export default function EventDialog({
   const [selectedColor, setSelectedColor] = useState(
     !isAdd
       ? clickedEvent && clickedEvent.event._def.extendedProps.label
-      : "bg-purple-500"
+      : "purple"
   );
   const [value, setValue] = React.useState(dayjs());
 
@@ -54,13 +54,7 @@ export default function EventDialog({
   function handleColorPick(x) {
     setSelectedColor(x);
   }
-  const colorList = [
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-red-500",
-    "bg-orange-500",
-    "bg-purple-500",
-  ];
+  const colorList = ["blue", "green", "red", "orange", "purple"];
 
   function add() {
     const obj = {
@@ -74,6 +68,7 @@ export default function EventDialog({
       label: selectedColor,
       allDay: true,
       color: selectedColor,
+      isCompleted: false,
     };
     dispatch(addTasks(obj));
     setIsClickedEvent();
@@ -130,7 +125,7 @@ export default function EventDialog({
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Desctiption"
                 rows={5}
-                className="rounded-lg px-4 py-2 outline-none border-none shadow-md text-sm"
+                className={`rounded-lg px-4 py-2 outline-none border-none shadow-md  text-sm`}
               ></textarea>
             </div>
             <div>
@@ -138,16 +133,22 @@ export default function EventDialog({
                 Label &nbsp; &nbsp;
                 <div
                   // style={{ backgroundColor: selectedColor }}
-                  className={`h-[20px] w-[20px] rounded-[50%] ${selectedColor}`}
+                  className={`h-[20px] w-[20px] rounded-[50%] ${
+                    "bg-" + selectedColor + "-500"
+                  }`}
                 ></div>
-                {selectedColor === "bg-purple-500" ? "(Default)" : null}
+                {"bg-" + selectedColor + "-500" == "bg-purple-500"
+                  ? "(Default)"
+                  : null}
               </label>
               <div className="flex items-center gap-1">
                 {colorList.map((x, i) => (
                   <div
                     key={i}
                     // style={{ backgroundColor: x }}
-                    className={`h-[20px] w-[20px] rounded-[50%] cursor-pointer ${x}`}
+                    className={`h-[20px] w-[20px] rounded-[50%] cursor-pointer ${
+                      x == "green" ? "bg-green-500" : "bg-" + x + "-500"
+                    }`}
                     onClick={() => handleColorPick(x)}
                   ></div>
                 ))}

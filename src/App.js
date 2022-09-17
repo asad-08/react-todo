@@ -28,7 +28,7 @@ function App() {
         <div className="main_body flex pl-[60px] md:pl-[200px] dark:bg-slate-800">
           <Sidebar />
           <Routes>
-            {/* <Route path="/" element={<Home />} exact /> */}
+            <Route path="/" element={<Calendar />} exact />
             <Route path="/dashboard" element={<Dashboard />} exact />
             <Route path="/mytask" element={<MyTask />} exact />
             <Route path="/calendar" element={<Calendar />} exact />

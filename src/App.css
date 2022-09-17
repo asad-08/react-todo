@@ -14,3 +14,11 @@ html {
 .main_body {
   min-height: calc(100vh);
 }
+.doughnut-chart svg {
+  width: 100% !important;
+  height: 400px !important;
+}
+.bar-chart svg {
+  width: 100% !important;
+  height: 400px !important;
+}
