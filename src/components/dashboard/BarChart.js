@@ -106,7 +106,7 @@ function BarChart() {
             // theme={VictoryTheme.material}
           >
             <VictoryLegend
-              x={125}
+              x={50}
               y={0}
               centerTitle
               orientation="horizontal"

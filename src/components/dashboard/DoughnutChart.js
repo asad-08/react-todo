@@ -28,27 +28,25 @@ function DoughnutChart() {
         events &&
         events.length > 0 &&
         events.filter((x) => x.isCompleted == false).length;
-      dt1.push({ x: "Completed", y: dayWiseTaskNumberCompleted });
-      dt1.push({ x: "Not Yet Completed", y: dayWiseTaskNumberNotCompleted });
-      const data = {
-        labels: ["Completed", "NotYetComplete"],
-        datasets: [
-          {
-            label: "# of Tasks",
-            data: [dayWiseTaskNumberCompleted, dayWiseTaskNumberNotCompleted],
-            backgroundColor: ["rgb(52 211 153)", "rgb(251 146 60)"],
-            borderColor: [],
-            borderWidth: 1,
-          },
-        ],
-      };
+      if (dayWiseTaskNumberCompleted > 0)
+        dt1.push({
+          x: "C",
+          y: dayWiseTaskNumberCompleted,
+          color: "rgb(52 211 153)",
+        });
+      if (dayWiseTaskNumberNotCompleted > 0)
+        dt1.push({
+          x: "NC",
+          y: dayWiseTaskNumberNotCompleted,
+          color: "rgb(251 146 60)",
+        });
+
       setData1(dt1);
-      setOption(data);
     }
   }, [events]);
   return (
     <>
-      {option ? (
+      {data1 && data1.length > 0 ? (
         <div className="w-full doughnut-chart flex justify-center">
           {/* <Doughnut
             data={option}
@@ -56,10 +54,13 @@ function DoughnutChart() {
           /> */}
 
           <VictoryPie
-            style={{ labels: { fill: "white" } }}
+            style={{
+              labels: { fill: "white" },
+              data: { fill: (d) => d.datum.color },
+            }}
             innerRadius={80}
             labelRadius={100}
-            labels={({ datum }) => `# ${datum.y}`}
+            labels={({ datum }) => `${datum.x} # ${datum.y}`}
             labelComponent={<CustomLabel />}
             data={data1}
           />

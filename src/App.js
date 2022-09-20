@@ -15,27 +15,35 @@ import MyTask from "./components/mytask/MyTask";
 import Calendar from "./components/calendar/Calendar";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
+import { getLoggedinUser } from "./store/login/loginSlice";
 
 function App() {
   const currentMode = useSelector(getCurrentMode);
+  const loggedInUser = useSelector(getLoggedinUser);
   return (
     <div className={`${currentMode && "dark"} " todo-app"`}>
       {/* <Login /> */}
       {/* <Home /> */}
 
       <Router>
-        <Header></Header>
-        <div className="main_body flex pl-[60px] md:pl-[200px] dark:bg-slate-800">
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<Calendar />} exact />
-            <Route path="/dashboard" element={<Dashboard />} exact />
-            <Route path="/mytask" element={<MyTask />} exact />
-            <Route path="/calendar" element={<Calendar />} exact />
-            {/* <Route element={<PageNotFound />} /> */}
-          </Routes>
-        </div>
-        {/* <Footer></Footer> */}
+        {!loggedInUser ? (
+          <Login />
+        ) : (
+          <>
+            <Header></Header>
+            <div className="main_body flex pl-[60px] md:pl-[200px] dark:bg-slate-800">
+              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Calendar />} exact />
+                <Route path="/dashboard" element={<Dashboard />} exact />
+                <Route path="/mytask" element={<MyTask />} exact />
+                <Route path="/calendar" element={<Calendar />} exact />
+                {/* <Route element={<PageNotFound />} /> */}
+              </Routes>
+            </div>
+            {/* <Footer></Footer> */}
+          </>
+        )}
       </Router>
     </div>
   );
